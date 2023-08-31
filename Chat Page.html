@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Online Chat</title>
+    <style>
+        .top-bar {
+            background-color: rgb(116, 185, 125);
+            padding: 25px;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+      body {
+  background-image: url("baby-ferrets.jpg");
+            background-size: cover;
+            margin: 0;
+        }
+
+        .chat-box a {
+            color:aqua;
+            margin-top: 20px;
+        }
+
+        .container1 {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #f5cad0c0;
+            opacity: 0.9;
+            margin-right: 200px;
+        }
+      
+    </style>
+
+</head>
+<div class="top-bar">
+    <a style="font-family:Helvetica; color:rgb(236, 232, 232); font-size: 25px;" href="ferret site.html">Fun Facts</a>
+    <a style="font-family:Helvetica; color:rgb(236, 232, 232); font-size: 20px;" href="Ferret Photos.html">Ferret Photos</a>
+    <a style="font-family:Helvetica; color:rgb(236, 232, 232); font-size: 20px;" href="Chat Page.html">Ferret Chat</a>
+    <a style="font-family:Helvetica; color:rgb(236, 232, 232); font-size: 20px;" href="About.html">About Us</a>
+    <a style="font-family:Helvetica; color:rgb(236, 232, 232); font-size: 20px;" href="Outside Ferret Info.html">Outside Ferret Info</a>
+
+    </div>
+
+    <h1 style="font-family:Helvetica; color:rgb(241, 128, 128); font-size: 60px;"> Ferret Chat </h1> 
+
+    <div id="chat-box">
+        <div id="chat-messages"></div>
+        <input type="text" id="user-input" placeholder="Type your message here..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+<body> 
+    <div class="container1">
+        <h1 style="font-family:Georgia; color:rgb(241, 128, 128); font-size: 40px;"> How to chat...</h1>
+         <p style="font-family:Georgia; color:rgb(255, 255, 255); font-size: 20px;">★ To create a conversation, simply click on the "Type your message here..." bar and begin typing.</p>
+         <p style="font-family:Georgia; color:rgb(251, 251, 252); font-size: 20px;">★ Once you have finished writing your message,  click send to send it out to ther viewers.</p>  
+         <p style="font-family:Georgia; color:rgb(251, 251, 252); font-size: 20px;">★ You will then be prompted to enter a username for yourself to show who sent the chat.</p> 
+         <p style="font-family:Georgia; color:rgb(219, 118, 118); font-size: 15px;">Get ready to chat!</p> 
+     </div>
+
+
+    <script>
+        // Retrieve chats from Local Storage on page load
+        const chats = JSON.parse(localStorage.getItem('chats')) || [];
+
+        // Function to render chat messages
+        function renderMessages() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            chats.forEach((chat) => {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = `${chat.username}: ${chat.message}`;
+                chatMessages.appendChild(messageElement);
+            });
+        }
+
+        // Function to send a new message
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            const username = prompt('Enter your username:');
+            if (!username) return;
+
+            chats.push({ username, message });
+            localStorage.setItem('chats', JSON.stringify(chats));
+            userInput.value = '';
+            renderMessages();
+        }
+
+        // Render existing messages on page load
+        window.onload = function () {
+            renderMessages();
+        };
+    </script>
+    
+    
+    </div>
+</body>
+</html>
